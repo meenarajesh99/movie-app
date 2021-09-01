@@ -1,23 +1,34 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { useState } from 'react';
 
-function App() {
+import Title from "./Title/Title";
+import Playlist from "./Playlist/Playlist";
+import AddSong from "./AddSong/AddSong";
+
+/***
+ * -App
+ *  - Title
+ *    - Playlist
+ *      - Song
+ *      - Song
+ *      - Song
+ *  - AddSong
+ *    - AddSongForm
+ *    - AddSongButton
+ */
+function App(props) {
+  const [songs, setSongs] = useState(props.songs);
+
+  const createSong = (title, artist) => {
+    const updatedSongs = songs.concat([{title, artist }]);
+    setSongs(updatedSongs);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hello World!
-        </a>
-      </header>
+      <Title />
+      <Playlist songs={songs} />
+      <AddSong createSong={createSong} />
     </div>
   );
 }
